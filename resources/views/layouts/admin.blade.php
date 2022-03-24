@@ -40,6 +40,8 @@
 
     <!-- Main CSS-->
     <link href="{{ asset('theme/admin/css/theme.css') }}" rel="stylesheet" media="all">
+    @livewireStyles
+    @stack('pageStyles')
 
 </head>
 
@@ -198,6 +200,8 @@
 
     <!-- Main JS-->
     <script src="{{ asset('theme/admin/js/main.js') }}"></script>
+    @livewireScripts
+    @stack('pageScripts')
 
 </body>
 

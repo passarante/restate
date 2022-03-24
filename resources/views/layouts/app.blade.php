@@ -19,6 +19,7 @@
     <link type="text/css" rel="stylesheet" href="{{ asset('theme/css/color.css') }}">
     <!--=============== favicons ===============-->
     <link rel="shortcut icon" href="{{ asset('theme/images/favicon.ico') }}">
+    @livewireStyles
 </head>
 
 <body>
@@ -189,6 +190,8 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwJSRi0zFjDemECmFl9JtRj1FY7TiTRRo&amp;libraries=places">
     </script>
     <script src="{{ asset('theme/js/map-single.js') }}"></script>
+    @livewireScripts
+
 </body>
 
 
