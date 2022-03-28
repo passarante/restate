@@ -11,5 +11,5 @@ Route::prefix('admin')->group(function () {
     Route::get('/dashboard', [DashboardController::class, "index"])
         ->name("dashboard.index");
     Route::get('/categories', CategoryList::class)->name('categories.index');
-    Route::get('/categories/form', CategoryForm::class)->name('categories.form');
+    Route::get('/categories/form/{category?}', CategoryForm::class)->name('categories.form');
 });

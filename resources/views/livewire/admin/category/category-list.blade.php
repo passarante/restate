@@ -19,7 +19,8 @@
                                     <th>Ad</th>
                                     <th>Açıklama</th>
                                     <th>Resim</th>
-                                    <th class="text-right">Durum</th>
+                                    <th>Durum</th>
+                                    <th></th>
 
                                 </tr>
                             </thead>
@@ -43,6 +44,12 @@
                                                     class="badge badge-danger">Pasif</span>
                                             @endif
 
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('categories.form', $category) }}"
+                                                class="btn btn-info btn-sm">Düzenle</a>
+                                            <button wire:click='confirmDelete({{ $category }})'
+                                                class="btn btn-danger btn-sm">Sil</button>
                                         </td>
                                     </tr>
                                 @empty

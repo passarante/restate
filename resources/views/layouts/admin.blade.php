@@ -37,7 +37,9 @@
     <link href="{{ asset('theme/admin/vendor/select2/select2.min.css') }}" rel="stylesheet" media="all">
     <link href="{{ asset('theme/admin/vendor/perfect-scrollbar/perfect-scrollbar.css') }}" rel="stylesheet"
         media="all">
-
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css'
+        integrity='sha512-O03ntXoVqaGUTAeAmvQ2YSzkCvclZEcPQu1eqloPaHfJ5RuNGiS4l+3duaidD801P50J28EHyonCV06CUlTSag=='
+        crossorigin='anonymous' />
     <!-- Main CSS-->
     <link href="{{ asset('theme/admin/css/theme.css') }}" rel="stylesheet" media="all">
     @livewireStyles
@@ -198,10 +200,77 @@
     <script src="{{ asset('theme/admin/vendor/select2/select2.min.js') }}">
     </script>
 
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js'
+        integrity='sha512-Zq9o+E00xhhR/7vJ49mxFNJ0KQw1E1TMWkPTxrWcnpfEFDEXgUiwJHIKit93EW/XxE31HSI5GEOW06G6BF1AtA=='
+        crossorigin='anonymous'></script>
     <!-- Main JS-->
     <script src="{{ asset('theme/admin/js/main.js') }}"></script>
     @livewireScripts
+
+    <script>
+        var successMessage = "{{ Session::get('successMessage') }}";
+        var errorMessage = "{{ Session::get('errorMessage') }}";
+
+        if (successMessage) {
+            iziToast.success({
+                title: 'Bilgi!...',
+                message: successMessage,
+            });
+        }
+        if (errorMessage) {
+            iziToast.error({
+                title: 'Hata!...',
+                message: errorMessage,
+            });
+        }
+        window.addEventListener('successMessage', event => {
+            iziToast.success({
+                title: 'Bilgi!...',
+                message: event.detail.message,
+            });
+        })
+        window.addEventListener('errorMessage', event => {
+            iziToast.error({
+                title: 'Hata!...',
+                message: event.detail.message,
+            });
+        })
+        window.addEventListener('delete-record', event => {
+            iziToast.question({
+                timeout: 20000,
+                close: false,
+                overlay: true,
+                displayMode: 'once',
+                id: 'question',
+                zindex: 999,
+                title: 'Hey',
+                message: `<strong>${event.detail.name}</strong> kaydını silmek istediğnize emin misiniz?`,
+                position: 'center',
+                buttons: [
+                    ['<button><b>SİL</b></button>', function(instance, toast) {
+
+                        instance.hide({
+                            transitionOut: 'fadeOut'
+                        }, toast, 'button');
+
+                        window.livewire.emit('deleteRecord');
+
+                    }, ],
+                    ['<button>İPTAL</button>', function(instance, toast) {
+
+                        instance.hide({
+                            transitionOut: 'fadeOut'
+                        }, toast, 'button');
+
+                    }, true],
+                ],
+
+            });
+        })
+    </script>
     @stack('pageScripts')
+
+
 
 </body>
 
