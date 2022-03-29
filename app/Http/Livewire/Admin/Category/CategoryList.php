@@ -4,16 +4,22 @@ namespace App\Http\Livewire\Admin\Category;
 
 use App\Models\Category;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class CategoryList extends Component
 {
 
+    use WithPagination;
+
     public $selectedCategory;
+    public $perPage = 5;
+    public $searchTerm = "";
+
     protected $listeners = [
         "deleteRecord"
     ];
 
-    public function chageStatus(Category $category)
+    public function changeStatus(Category $category)
     {
         $category->status = !$category->status;
         $category->save();
@@ -41,7 +47,9 @@ class CategoryList extends Component
     {
 
         return view('livewire.admin.category.category-list', [
-            "categories" => Category::all()
+            "categories" => Category::where("name", "LIKE", "%{$this->searchTerm}%")
+                ->orWhere("description", "LIKE", "%{$this->searchTerm}%")
+                ->paginate($this->perPage)
         ])
             ->layout("layouts.admin");
     }

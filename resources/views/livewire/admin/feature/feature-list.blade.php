@@ -1,11 +1,15 @@
+@push('pageStyles')
+    <link rel="stylesheet" href="{{ asset('theme/css/plugins.css') }}">
+@endpush
+
 <div class="main-content">
     <div class="section__content section__content--p30">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
                     <div class="overview-wrap">
-                        <h2 class="title-1">Kategoriler</h2>
-                        <a href="{{ route('categories.form') }}" class="au-btn au-btn-icon au-btn--blue">
+                        <h2 class="title-1">Özellikler</h2>
+                        <a href="{{ route('features.form') }}" class="au-btn au-btn-icon au-btn--blue">
                             <i class="zmdi zmdi-plus"></i>Yeni Ekle</a>
                     </div>
                 </div>
@@ -31,51 +35,51 @@
                             <thead>
                                 <tr>
                                     <th>Ad</th>
-                                    <th>Açıklama</th>
-                                    <th>Resim</th>
+                                    <th>Simge</th>
                                     <th>Durum</th>
                                     <th></th>
 
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($categories as $category)
+                                @forelse ($features as $feature)
                                     <tr>
                                         <td>
-                                            {{ $category->name }}
+                                            {{ $feature->name }}
                                         </td>
-                                        <td>{{ $category->description }}</td>
-                                        <td>
 
-                                            <img src="{{ Storage::url($category->photo) }}" alt="">
+                                        <td>
+                                            <i class="{{ $feature->icon }} fa-2x"></i>
                                         </td>
                                         <td>
-                                            @if ($category->status == 1)
-                                                <span wire:click='changeStatus({{ $category }})'
+                                            @if ($feature->status == 1)
+                                                <span wire:click='changeStatus({{ $feature }})'
                                                     class="badge badge-success">Aktif</span>
                                             @else
-                                                <span wire:click='changeStatus({{ $category }})'
+                                                <span wire:click='changeStatus({{ $feature }})'
                                                     class="badge badge-danger">Pasif</span>
                                             @endif
 
                                         </td>
                                         <td>
-                                            <a href="{{ route('categories.form', $category) }}"
+                                            <a href="{{ route('categories.form', $feature) }}"
                                                 class="btn btn-info btn-sm">Düzenle</a>
-                                            <button wire:click='confirmDelete({{ $category }})'
+                                            <button wire:click='confirmDelete({{ $feature }})'
                                                 class="btn btn-danger btn-sm">Sil</button>
                                         </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="4">Henüz kategori eklenmemiş</td>
+                                        <td colspan="4">Henüz özellik eklenmemiş</td>
                                     </tr>
                                 @endforelse
                             </tbody>
                         </table>
-                        <div class="m-2 float-right">
-                            {{ $categories->links('pagination::bootstrap-4') }}
-                        </div>
+                        @if ($features->count() > 0)
+                            <div class="m-2 float-right">
+                                {{ $features->links('pagination::bootstrap-4') }}
+                            </div>
+                        @endif
                     </div>
                 </div>
 
@@ -83,3 +87,4 @@
             </div>
         </div>
     </div>
+</div>

@@ -31,8 +31,8 @@
                         <i class="fas fa-chart-bar"></i>Kategoriler</a>
                 </li>
                 <li>
-                    <a href="table.html">
-                        <i class="fas fa-table"></i>Tables</a>
+                    <a href="{{ route('features.index') }}">
+                        <i class="fas fa-table"></i>Özellikler</a>
                 </li>
                 <li>
                     <a href="form.html">
