@@ -35,8 +35,8 @@
                         <i class="fas fa-table"></i>Özellikler</a>
                 </li>
                 <li>
-                    <a href="form.html">
-                        <i class="far fa-check-square"></i>Forms</a>
+                    <a href="{{ route('users.index') }}">
+                        <i class="far fa-check-square"></i>Kullanıcılar</a>
                 </li>
                 <li>
                     <a href="calendar.html">

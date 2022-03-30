@@ -124,6 +124,30 @@ class FeatureForm extends Component
         return redirect()->route('features.index');
     }
 
+    public function update()
+    {
+        $this->validate();
+
+        ListingFeature::findOrfail($this->featureId)->update([
+            "name" => $this->name,
+            "icon" => $this->icon,
+            "status" => $this->status,
+        ]);
+
+        Session::flash("successMessage", "Özellik güncellendi");
+        return redirect()->route('features.index');
+    }
+
+    public function mount(?ListingFeature $feature)
+    {
+        if ($feature->id) {
+            $this->featureId = $feature->id;
+            $this->name = $feature->name;
+            $this->icon = $feature->icon;
+            $this->status = $feature->status;
+        }
+    }
+
     public function render()
     {
         return view('livewire.admin.feature.feature-form')

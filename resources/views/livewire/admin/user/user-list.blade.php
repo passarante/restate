@@ -8,8 +8,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="overview-wrap">
-                        <h2 class="title-1">Özellikler</h2>
-                        <a href="{{ route('features.form') }}" class="au-btn au-btn-icon au-btn--blue">
+                        <h2 class="title-1">Kullanıcılar</h2>
+                        <a href="{{ route('users.form') }}" class="au-btn au-btn-icon au-btn--blue">
                             <i class="zmdi zmdi-plus"></i>Yeni Ekle</a>
                     </div>
                 </div>
@@ -35,49 +35,45 @@
                             <thead>
                                 <tr>
                                     <th>Ad</th>
-                                    <th>Simge</th>
-                                    <th>Durum</th>
+                                    <th>Email</th>
+                                    <th>Resim</th>
+                                    <th>Tip</th>
                                     <th></th>
 
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($features as $feature)
+                                @foreach ($users as $user)
                                     <tr>
                                         <td>
-                                            {{ $feature->name }}
+                                            {{ $user->name }}
                                         </td>
 
                                         <td>
-                                            <i class="{{ $feature->icon }} fa-2x"></i>
+                                            {{ $user->email }}
                                         </td>
+                                        <td>resim</td>
                                         <td>
-                                            @if ($feature->status == 1)
-                                                <span wire:click='changeStatus({{ $feature }})'
-                                                    class="badge badge-success">Aktif</span>
+                                            @if ($user->type == 'admin')
+                                                <span class="badge badge-success">Yönetici</span>
                                             @else
-                                                <span wire:click='changeStatus({{ $feature }})'
-                                                    class="badge badge-danger">Pasif</span>
+                                                <span class="badge badge-danger">Üye</span>
                                             @endif
 
                                         </td>
                                         <td>
-                                            <a href="{{ route('features.form', $feature) }}"
+                                            <a href="{{ route('users.form', $user) }}"
                                                 class="btn btn-info btn-sm">Düzenle</a>
-                                            <button wire:click='confirmDelete({{ $feature }})'
+                                            <button wire:click='confirmDelete({{ $user }})'
                                                 class="btn btn-danger btn-sm">Sil</button>
                                         </td>
                                     </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="4">Henüz özellik eklenmemiş</td>
-                                    </tr>
-                                @endforelse
+                                @endforeach
                             </tbody>
                         </table>
-                        @if ($features->count() > 0)
+                        @if ($users->count() > 0)
                             <div class="m-2 float-right">
-                                {{ $features->links('pagination::bootstrap-4') }}
+                                {{ $users->links('pagination::bootstrap-4') }}
                             </div>
                         @endif
                     </div>

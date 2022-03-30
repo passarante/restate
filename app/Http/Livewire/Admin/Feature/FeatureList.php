@@ -27,7 +27,9 @@ class FeatureList extends Component
 
     public function confirmDelete(ListingFeature $feature)
     {
-        $this->selectedfeature = $feature->id;
+
+        $this->selectedFeature = $feature->id;
+
         $this->dispatchBrowserEvent('delete-record', [
             'name' => $feature->name
         ]);
@@ -35,6 +37,7 @@ class FeatureList extends Component
 
     public function deleteRecord()
     {
+
         ListingFeature::findOrFail($this->selectedFeature)
             ->delete();
 

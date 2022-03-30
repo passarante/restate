@@ -37,7 +37,14 @@
             </div>
             <!--  cart-btn end -->
             <!--  login btn -->
-            <div class="show-reg-form modal-open"><i class="fas fa-user"></i><span>Sign In</span></div>
+            @guest
+                <div class="show-reg-form modal-open"><i class="fas fa-user"></i><span>Giriş / Kayıt</span></div>
+            @endguest
+            @auth
+                <div class="show-reg-form dasbdord-submenu-open">
+                    {{ Auth::user()->name }}
+                </div>
+            @endauth
             <!--  login btn  end -->
             <!--  navigation -->
             <div class="nav-holder main-menu">
